@@ -1,6 +1,15 @@
 ;; -*- mode: emacs-lisp -*-
 ;; Simple .emacs configuration
 
+;; ---------------------------------
+;; -- Marmalade: Spreadable Elisp --
+;; ---------------------------------
+(require 'package)
+(add-to-list 'package-archives
+    '("marmalade" .
+      "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
 ;; ---------------------
 ;; -- Global Settings --
 ;; ---------------------
@@ -48,6 +57,30 @@
  '(vertical-border ((t nil)))
 )
 
+;; -----------------------
+;; -- Mouse Integration --
+;; -----------------------
+(require 'mouse) ;; needed for iterm2 compatibility
+(xterm-mouse-mode t)
+(global-set-key [mouse-4] '(lambda ()
+			     (interactive)
+			     (scroll-down 1)))
+(global-set-key [mouse-5] '(lambda ()
+			     (interactive)
+			     (scroll-up 1)))
+(setq mouse-sel-mode t)
+(defun track-mouse (e))
+;; (setq mouse-wheel-mode 1)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed t) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+
+;; -----------------------
+;; -- Custom Navigation --
+;; -----------------------
+(setq scroll-error-top-bottom t)	 ; page up/down goes to end
+(setq scroll-preserve-screen-position t) ; preserves point pos on page up/down
+
 ;; ------------
 ;; -- Macros --
 ;; ------------
@@ -72,15 +105,6 @@
 (load "js-config.el")
 (add-to-list 'load-path "~/.emacs.d/jade-mode") ;; github.com/brianc/jade-mode
 (require 'sws-mode)
-(require 'jade-mode)    
+(require 'jade-mode)
 (add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
-
-;; --------------
-;; -- Markdown --
-;; --------------
-(add-to-list 'load-path "~/.emacs.d/vendor")
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-
