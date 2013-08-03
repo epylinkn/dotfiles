@@ -57,3 +57,11 @@ and their terminal equivalents.")
   (or (and window-system (read-kbd-macro desc))
       (or (cdr (assoc desc real-keyboard-keys))
 	  (read-kbd-macro desc))))
+
+;; me
+(defun iwb ()
+  "indent whole buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max)))
