@@ -1,0 +1,21 @@
+alias ll='ls -alHG'
+alias ls='ls -G'
+
+alias s='open -a "Sublime Text 2"'
+alias emacs="/usr/local/Cellar/emacs/24.3/Emacs.app/contents/MacOS/Emacs -nw"
+alias be='bundle exec'
+alias krsl='bundle exec knife rackspace server list'
+alias kesl='bundle exec knife ec2 server list'
+alias krsd='bundle exec knife rackspace server delete'
+alias kesd='bundle exec knife ec2 server delete'
+alias krff='bundle exec knife role from file'
+alias keff='bundle exec knife environment from file'
+alias shef='bundle exec shef -z -c .chef/knife.rb'
+alias kcu='bundle exec knife cookbook upload'
+alias kcd='bundle exec knife client delete'
+alias knd='bundle exec knife node delete'
+
+
+# folder switching
+alias cdh='cd ~/$/haw'
+alias cds='cd ~/$/servers'

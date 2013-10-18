@@ -36,6 +36,12 @@
 (setq show-trailing-whitespace t)
 (setq suggest-key-bindings t)
 (setq vc-follow-symlinks t)
+(setq make-backup-files nil)
+(setq auto-save-list-file-name nil)
+(setq buffer-auto-save-file-name nil)
+(setq auto-save-default nil)
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq scss-compile-at-save nil)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -51,11 +57,11 @@
  '(highlight ((((class color) (min-colors 8)) (:background "white" :foreground "magenta"))))
  '(isearch ((((class color) (min-colors 8)) (:background "yellow" :foreground "black"))))
  '(linum ((t (:foreground "black" :weight bold))))
+ '(magit-item-highlight ((t nil)))
  '(region ((((class color) (min-colors 8)) (:background "white" :foreground "magenta"))))
  '(secondary-selection ((((class color) (min-colors 8)) (:background "gray" :foreground "cyan"))))
  '(show-paren-match ((((class color) (background light)) (:background "black"))))
- '(vertical-border ((t nil)))
-)
+ '(vertical-border ((t nil))))
 
 ;; -----------------------
 ;; -- Mouse Integration --
@@ -108,3 +114,30 @@
 (require 'jade-mode)
 (add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(css-indent-offset 2)
+ '(ruby-deep-arglist (quote f))
+ '(ruby-deep-indent-paren nil))
+
+;; ---------------------------
+;; -- JS Mode configuration --
+;; ---------------------------
+(add-to-list 'load-path "~/$/rinari")
+(require 'rinari)
+
+
+(defun transpose-buffers (arg)
+  "Transpose the buffers shown in two windows."
+  (interactive "p")
+  (let ((selector (if (>= arg 0) 'next-window 'previous-window)))
+    (while (/= arg 0)
+      (let ((this-win (window-buffer))
+            (next-win (window-buffer (funcall selector))))
+        (set-window-buffer (selected-window) next-win)
+        (set-window-buffer (funcall selector) this-win)
+        (select-window (funcall selector)))
+      (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
